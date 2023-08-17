@@ -8,7 +8,7 @@ import { HamburgerIcon, ChatIcon, Search2Icon } from "@chakra-ui/icons";
 export const Navbar = () => {
   return (
     <>
-      <Flex p="1.2rem 2rem" borderBottom="1px solid #e1e1e1" align="center">
+      <Flex p="1rem 1.2rem" borderBottom="1px solid #e1e1e1" align="center">
         <Box className="hamburger">
           <HamburgerIcon color="grey.600" boxSize={6} />
         </Box>
@@ -16,12 +16,17 @@ export const Navbar = () => {
           <Box>Home</Box>
           <Box>Others</Box>
         </Box>
-        <Flex className="other-icons" ml="auto" width={['50%']} justifyContent='space-between'>
-          <Search2Icon />
-          <ChatIcon />
-          <IoIosNotificationsOutline />
-          <HiOutlineArrowsExpand />
-          <FaThLarge />
+        <Flex
+          ml="auto"
+          width={["50%"]}
+          className="other-icons"
+          justifyContent="space-between"
+        >
+          <Search2Icon color="#838383" />
+          <ChatIcon color="#838383" />
+          <IoIosNotificationsOutline size={18} color="#838383" />
+          <HiOutlineArrowsExpand color="#838383" />
+          <FaThLarge color="#838383" />
         </Flex>
       </Flex>
     </>
@@ -29,3 +34,4 @@ export const Navbar = () => {
 };
 
 // bcdbcd;
+// #0267FD
