@@ -4,7 +4,7 @@ import { Icon, IconProps } from "@chakra-ui/react";
 const Vale = (props: IconProps) => (
   <Icon viewBox="0 0 119 49" {...props}>
     <>
-      <g id="Logo" clip-path="url(#clip0_3418_28444)">
+      <g id="Logo" clipPath="url(#clip0_3418_28444)">
         <path
           id="Union"
           fillRule="evenodd"
