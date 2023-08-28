@@ -1,5 +1,5 @@
 import React from "react";
-import { Login } from "./login";
+import { Login } from "./auth/login";
 import { Box, Flex } from "@chakra-ui/react";
 
 export const Home = () => {

@@ -1,19 +1,20 @@
 import * as React from "react";
 import { Navbar } from "./components/navbar";
-import { DashboardTitle } from "./components/header";
+import { Login } from "./components/auth/login";
+import { Route, Routes } from "react-router-dom";
+import { Dashboard } from "./components/dashboard";
+// import { LandingPage } from "./components/landing";
 import { ChakraProvider, theme } from "@chakra-ui/react";
-import { Boxes } from "./components/Boxes";
-import { DataTable } from "./components/table";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
     <nav>
       <Navbar />
     </nav>
-    <main>
-      <DashboardTitle />
-      <Boxes />
-      <DataTable />
-    </main>
+    <Routes>
+      <Route index path='/' element={<Login />} />
+      <Route path='/dashboard' element={<Dashboard />} />
+    </Routes>
+    
   </ChakraProvider>
 );

@@ -1,12 +1,12 @@
 import React from "react";
 import Vale from "./primitives/icons";
-import { FaThLarge } from "react-icons/fa";
-import { Box, Flex, IconButton } from "@chakra-ui/react";
-import { HiOutlineArrowsExpand } from "react-icons/hi";
-import { IoMdNotificationsOutline } from "react-icons/io";
-import { ChatIcon, Search2Icon } from "@chakra-ui/icons";
+import { IconNavs } from "./iconNavs";
+import { Box, Button, Flex } from "@chakra-ui/react";
+import { useLocation, Link } from "react-router-dom";
 
 export const Navbar = () => {
+  const { pathname } = useLocation();
+
   return (
     <>
       <Flex p="1rem 1.2rem" borderBottom="1px solid #e1e1e1" align="center">
@@ -17,58 +17,19 @@ export const Navbar = () => {
           <Box>Home</Box>
           <Box>Others</Box>
         </Box>
-        <Flex
-          ml="auto"
-          width="13rem"
-          className="other-icons"
-          justifyContent="space-between"
-        >
-          <IconButton
-            isRound={true}
-            variant="ghost"
-            colorScheme="teal"
-            aria-label="Done"
-            fontSize="20px"
-            icon={<Search2Icon color="#838383" />}
-            onClick={() => console.log("I just got clicked")}
-          />
-          <IconButton
-            isRound={true}
-            variant="ghost"
-            colorScheme="teal"
-            aria-label="Done"
-            fontSize="20px"
-            icon={<ChatIcon color="#838383" />}
-          />
-          <IconButton
-            isRound={true}
-            variant="ghost"
-            colorScheme="teal"
-            aria-label="Done"
-            fontSize="20px"
-            icon={<IoMdNotificationsOutline size={18} color="#838383" />}
-          />
-          <IconButton
-            isRound={true}
-            variant="ghost"
-            colorScheme="teal"
-            aria-label="Done"
-            fontSize="20px"
-            icon={<HiOutlineArrowsExpand color="#838383" />}
-          />
-          <IconButton
-            isRound={true}
-            variant="ghost"
-            colorScheme="teal"
-            aria-label="Done"
-            fontSize="20px"
-            icon={<FaThLarge color="#838383" />}
-          />
-        </Flex>
+        <Box ml="auto">{pathname === "/" ? <LogInButton /> : <IconNavs />}</Box>
       </Flex>
     </>
   );
 };
 
+const LogInButton = () => (
+  <Button variant="ghost" _hover={{ bg: "none", color: "#0267FD" }}>
+    <Link to="/">Sign in/Register</Link>
+  </Button>
+);
+
 // bcdbcd;
 // #0267FD
+// <Button><Link to='/login'>Sign in/Register</Link></Button>
+// <Link to='/login'>Sign in/Register</Link>
