@@ -28,8 +28,8 @@ export const DashboardTitle = () => {
   );
 };
 
-const styles = {
-  active: {
-    color: "#0267FD",
-  },
-};
+// const styles = {
+//   active: {
+//     color: "#0267FD",
+//   },
+// };
