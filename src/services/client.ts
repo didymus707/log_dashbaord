@@ -1,6 +1,17 @@
 import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 
+export const requestConfig = {
+  method: "get",
+  baseURL: "https://fundtransferservicetest.azurewebsites.net",
+  headers: {
+    Authorization: `Bearer ${Cookies.get("token")}`,
+    "Content-Type": "application/json",
+    "X-XSRF-TOKEN": Cookies.get("encryptToken"),
+  },
+  params: {},
+};
+
 export const transactionUrl = (url: string) =>
   `${process.env.REACT_APP_BASE_URL}${url}`;
 
