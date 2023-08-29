@@ -8,12 +8,14 @@ import {
   Container,
 } from "@chakra-ui/react";
 import axios from "axios";
+import Cookies from "js-cookie";
 import React, { useState } from "react";
+import { useToast } from "@chakra-ui/react";
 import { Subtitle } from "../primitives/typos";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 export const Login = () => {
+  const toast = useToast();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -42,7 +44,10 @@ export const Login = () => {
       console.log(result);
       const { accessToken, encryptedAccessToken } = result;
       if (!accessToken) {
-        alert("Unable to login, pls try again");
+        toast({
+          title: "Unable to log in, pls try again later",
+          status: "info",
+        });
         return;
       }
       setUsername("");
@@ -50,10 +55,16 @@ export const Login = () => {
       Cookies.set("token", accessToken);
       Cookies.set("encryptToken", encryptedAccessToken);
       navigate("/dashboard");
-    } catch (error) {
+    } catch (error: any) {
+      const {
+        error: { message },
+      } = error;
       setIsLoading(false);
-      alert("Unable to login, pls try again");
-      console.log(error);
+      toast({
+        title: message,
+        status: "error",
+      });
+      console.log("error", error);
     }
   };
 
