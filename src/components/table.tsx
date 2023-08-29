@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { SetStateAction } from "react";
 import {
   Box,
   Table,
@@ -16,16 +16,34 @@ import {
   InputLeftElement,
   Input,
 } from "@chakra-ui/react";
-import { CustomInput } from "./primitives/customInput";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { SearchIcon } from "@chakra-ui/icons";
+import { format } from "date-fns";
+import "react-datepicker/dist/react-datepicker.css";
+import { CustomInput } from "./primitives/customInput";
 
-export const DataTable = () => {
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
+type DataTableProps = {
+  query: string;
+  endDate?: Date;
+  startDate?: Date;
+  setStartDate?: any;
+  setEndDate?: any;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
+  list: {}[];
+};
 
-  console.log("object", { startDate, endDate });
+export const DataTable = (props: DataTableProps) => {
+  const {
+    query,
+    endDate,
+    startDate,
+    setStartDate,
+    setEndDate,
+    setQuery,
+    list,
+  } = props;
+
+  const handleSearch = (event: any) => setQuery(event.target.value);
 
   return (
     <Box>
@@ -55,11 +73,16 @@ export const DataTable = () => {
           Reset
         </Button>
 
-        <InputGroup width="400px" ml='auto'>
+        <InputGroup width="400px" ml="auto">
           <InputLeftElement pointerEvents="none">
             <SearchIcon color="gray.300" />
           </InputLeftElement>
-          <Input type="tel" placeholder="Search..." />
+          <Input
+            type="text"
+            value={query}
+            onChange={handleSearch}
+            placeholder="Search..."
+          />
         </InputGroup>
       </Flex>
       <TableContainer>
@@ -69,22 +92,38 @@ export const DataTable = () => {
               <Th>Date</Th>
               <Th>Request ID</Th>
               <Th>Response Code</Th>
-              <Th>Transaction Amount</Th>
-              <Th>Beneficiary Bank</Th>
-              <Th>Beneficiary Account Number</Th>
+              <Th>Ben. Bank</Th>
+              <Th>Ben. Account Number</Th>
+              <Th>Narration</Th>
+              {/* <Th>Transaction Amount</Th> */}
             </Tr>
           </Thead>
           <Tbody>
-            <Tr>
-              <Td>Rodri</Td>
-              <Td>Rodri</Td>
-              <Td>200</Td>
-              <Td>Declan Rice</Td>
-              <Td>Caicedo</Td>
-              <Td>Macca</Td>
-            </Tr>
-            <Tr></Tr>
-            <Tr></Tr>
+            {list.map((item: any) => {
+              const {
+                requestId,
+                narration,
+                responseCode,
+                beneficiaryBank,
+                lastModificationTime,
+                beneficiaryAccountNumber,
+              } = item;
+              return (
+                <>
+                  <Tr>
+                    <Td>
+                      {format(new Date(lastModificationTime), "dd/MM/yyy")}
+                    </Td>
+                    {/* <Td>{format(lastModificationTime, 'dd/MM/yyy')}</Td> */}
+                    <Td>{requestId}</Td>
+                    <Td>{responseCode}</Td>
+                    <Td>{beneficiaryBank}</Td>
+                    <Td>{beneficiaryAccountNumber}</Td>
+                    <Td>{narration}</Td>
+                  </Tr>
+                </>
+              );
+            })}
           </Tbody>
           <Tfoot></Tfoot>
         </Table>

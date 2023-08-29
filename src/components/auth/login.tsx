@@ -40,7 +40,7 @@ export const Login = () => {
       );
       setIsLoading(false);
       console.log(result);
-      const { accessToken } = result;
+      const { accessToken, encryptedAccessToken } = result;
       if (!accessToken) {
         alert("Unable to login, pls try again");
         return;
@@ -48,6 +48,7 @@ export const Login = () => {
       setUsername("");
       setPassword("");
       Cookies.set("token", accessToken);
+      Cookies.set("encryptToken", encryptedAccessToken);
       navigate("/dashboard");
     } catch (error) {
       setIsLoading(false);

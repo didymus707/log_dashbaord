@@ -29,7 +29,11 @@ const LogInButton = () => (
   </Button>
 );
 
+// const LogOut = () => (
+//   <Button variant="ghost" _hover={{ bg: "none", color: "#0267FD" }}>
+//     <Link to="/">Sign Out</Link>
+//   </Button>
+// );
+
 // bcdbcd;
 // #0267FD
-// <Button><Link to='/login'>Sign in/Register</Link></Button>
-// <Link to='/login'>Sign in/Register</Link>
