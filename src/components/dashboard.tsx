@@ -11,14 +11,14 @@ export const Dashboard = () => {
   const [query, setQuery] = useState("");
   const [endDate, setEndDate] = useState<Date>();
   const [startDate, setStartDate] = useState<Date>();
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalRecords, setTotalRecords] = useState<number>(10)
+  const [totalRecords, setTotalRecords] = useState<number>(10);
   const [recordsPerPage, setRecordsPerPage] = useState<number>(5);
 
-  const indexOfLastRecord = currentPage * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentList = list.slice(indexOfFirstRecord, indexOfLastRecord);
+  // const indexOfLastRecord = currentPage * recordsPerPage;
+  // const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  // const currentList = list.slice(indexOfFirstRecord, indexOfLastRecord);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -37,9 +37,9 @@ export const Dashboard = () => {
       setList(data?.data);
     };
     fetchTransactions();
-  }, [currentPage]);
-
-  console.log("endDate", endDate);
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, recordsPerPage]);
 
   return !!list.length ? (
     <Box as="main" pb="4rem">
@@ -58,6 +58,7 @@ export const Dashboard = () => {
         recordsPerPage={recordsPerPage}
         setCurrentPage={setCurrentPage}
         setTotalRecords={setTotalRecords}
+        setRecordsPerPage={setRecordsPerPage}
       />
     </Box>
   ) : (

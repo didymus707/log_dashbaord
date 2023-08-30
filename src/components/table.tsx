@@ -1,30 +1,34 @@
 import React, { useState } from "react";
 import {
+  Tr,
+  Th,
+  Td,
   Box,
+  Flex,
   Table,
   Thead,
   Tbody,
   Tfoot,
-  Tr,
-  Th,
-  Td,
   // TableCaption,
-  TableContainer,
-  Flex,
-  Button,
-  InputGroup,
-  InputLeftElement,
   Input,
+  Button,
+  Select,
   Spinner,
+  InputGroup,
+  TableContainer,
+  InputLeftElement,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { format } from "date-fns";
+import { entryBits } from "../logic";
 import DatePicker from "react-datepicker";
 import { SearchIcon } from "@chakra-ui/icons";
+import { BodyText } from "./primitives/typos";
 import "react-datepicker/dist/react-datepicker.css";
 import { requestConfig } from "../services/client";
 import { CustomInput } from "./primitives/customInput";
 import Paginate, { PaginateProps } from "./primitives/paginate";
+// import { Filter } from "./primitives/filter";
 
 type DataTableProps = {
   list: {}[];
@@ -35,9 +39,10 @@ type DataTableProps = {
   setEndDate?: any;
   setStartDate?: any;
   currentPage: number;
-  setTotalRecords: any;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  setTotalRecords: React.Dispatch<React.SetStateAction<number>>;
+  setRecordsPerPage: React.Dispatch<React.SetStateAction<number>>;
 } & PaginateProps;
 
 export const DataTable = (props: DataTableProps) => {
@@ -55,10 +60,16 @@ export const DataTable = (props: DataTableProps) => {
     recordsPerPage,
     setCurrentPage,
     setTotalRecords,
+    setRecordsPerPage,
   } = props;
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSearch = (event: any) => setQuery(event.target.value);
+  const handleEntry = (event: any) => {
+    console.log("something should happen");
+    setRecordsPerPage(event.target.value);
+  };
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setQuery(event.target.value);
   const handleFilter = async () => {
     setLoading(true);
     try {
@@ -79,14 +90,34 @@ export const DataTable = (props: DataTableProps) => {
     }
   };
 
+  const result = entryBits(totalRecords);
+
   return (
-    <Box>
-      <Flex w="100%" p="1rem" align="center">
+    <Box p="0.8rem 1.2rem">
+      {/* <Filter query={query} endDate={endDate} startDate={startDate} result={result} customInput={<CustomInput />} recordsPerPage={recordsPerPage} handleEntry={handleEntry} handleSearch={handleSearch} handleFilter={handleFilter} /> */}
+      <Flex w="100%" p="1.5rem 0" align="center">
+        <Flex align="center" w="184px" justify="space-between" mr="1rem">
+          <BodyText>Show</BodyText>
+          <Select
+            w="80px"
+            value={recordsPerPage}
+            variant="filled"
+            onChange={handleEntry}
+          >
+            {result.map((bit: number, index: number) => (
+              <option key={index} value={bit}>
+                {bit}
+              </option>
+            ))}
+          </Select>
+          <BodyText>Entries</BodyText>
+        </Flex>
         <DatePicker
           selectsStart
           endDate={endDate}
           selected={startDate}
           startDate={startDate}
+          dateFormat="dd - MM - yyyy"
           customInput={<CustomInput />}
           placeholderText="Select Date"
           onChange={(date: Date) => setStartDate(date)}
@@ -97,6 +128,7 @@ export const DataTable = (props: DataTableProps) => {
           selected={endDate}
           minDate={startDate}
           startDate={startDate}
+          dateFormat="dd - MM - yyyy"
           customInput={<CustomInput />}
           onChange={(date: Date) => setEndDate(date)}
         />
@@ -111,7 +143,7 @@ export const DataTable = (props: DataTableProps) => {
         >
           Filter
         </Button>
-        <Button w="6rem" colorScheme="gray">
+        <Button w="6rem" colorScheme="gray" onClick={() => {}}>
           Reset
         </Button>
 
@@ -168,9 +200,12 @@ export const DataTable = (props: DataTableProps) => {
                   } = item;
                   return (
                     <>
-                      <Tr key={requestId}>
+                      <Tr key={transactionId}>
                         <Td>
-                          {format(new Date(lastModificationTime), "dd-MM-yyy")}
+                          {format(
+                            new Date(lastModificationTime),
+                            "MMM dd, yyy HH:mm"
+                          )}
                         </Td>
                         <Td>{requestId}</Td>
                         <Td>{responseCode}</Td>

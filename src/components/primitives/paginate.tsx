@@ -58,12 +58,12 @@ export const Paginate = (props: PaginateProps) => {
         >
           Prev
         </Box>
-        {pageNumbers.map((pageNum: number) => (
+        {pageNumbers.map((pageNum: number, index: number) => (
           <>
             <Box
               as="li"
               rounded="md"
-              key={pageNum}
+              key={index}
               fontSize="1rem"
               color="#00a8ff"
               cursor="pointer"
