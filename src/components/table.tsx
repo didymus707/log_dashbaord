@@ -212,7 +212,10 @@ export const DataTable = (props: DataTableProps) => {
                         <Td>{beneficiaryBank}</Td>
                         <Td>{beneficiaryAccountNumber}</Td>
                         <Td>{narration}</Td>
-                        <Td>{transactionAmount}</Td>
+                        <Td
+                          textAlign="right"
+                          pr="2.5rem"
+                        >{`\u20A6${transactionAmount.toFixed(2)}`}</Td>
                       </Tr>
                     </>
                   );
