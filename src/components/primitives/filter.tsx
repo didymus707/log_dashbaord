@@ -10,14 +10,12 @@ import {
   InputLeftElement,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { CustomInput } from "./customInput";
 
 type FilterProps = {
   query: string;
   endDate?: Date;
   startDate?: Date;
   result: number[];
-  // customInput: ReactNode;
   recordsPerPage: number;
   handleEntry: () => void;
   handleSearch: () => void;
@@ -64,7 +62,6 @@ export const Filter = (props: FilterProps) => {
         selected={startDate}
         startDate={startDate}
         dateFormat="dd - MM - yyyy"
-        customInput={<CustomInput />}
         placeholderText="Select Date"
         onChange={(date: Date) => setStartDate(date)}
       />
@@ -75,7 +72,6 @@ export const Filter = (props: FilterProps) => {
         minDate={startDate}
         startDate={startDate}
         dateFormat="dd - MM - yyyy"
-        customInput={<CustomInput />}
         onChange={(date: Date) => setEndDate(date)}
       />
       <Button

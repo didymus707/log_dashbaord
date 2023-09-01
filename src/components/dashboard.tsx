@@ -5,10 +5,11 @@ import { Box, Spinner } from "@chakra-ui/react";
 import { DashboardTitle } from "./header";
 import React, { useEffect, useState } from "react";
 import { requestConfig } from "../services/client";
+import useDebounce from "./hooks";
 
 export const Dashboard = () => {
   const [list, setList] = useState([]);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState();
   const [endDate, setEndDate] = useState<Date>();
   const [startDate, setStartDate] = useState<Date>();
   // const [loading, setLoading] = useState<boolean>(false);
@@ -16,9 +17,7 @@ export const Dashboard = () => {
   const [totalRecords, setTotalRecords] = useState<number>(10);
   const [recordsPerPage, setRecordsPerPage] = useState<number>(5);
 
-  // const indexOfLastRecord = currentPage * recordsPerPage;
-  // const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  // const currentList = list.slice(indexOfFirstRecord, indexOfLastRecord);
+  const debounceValue = useDebounce(query, 500);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -27,7 +26,7 @@ export const Dashboard = () => {
         params: {
           page: currentPage,
           PerPage: recordsPerPage,
-          FilterValue: query,
+          FilterValue: debounceValue,
           FromDate: startDate,
           ToDate: endDate,
         },
@@ -39,7 +38,7 @@ export const Dashboard = () => {
     fetchTransactions();
     
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, recordsPerPage]);
+  }, [currentPage, recordsPerPage, debounceValue]);
 
   return !!list.length ? (
     <Box as="main" pb="4rem">

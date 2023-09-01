@@ -17,7 +17,7 @@ export const Navbar = () => {
           <Box>Home</Box>
           <Box>Others</Box>
         </Box>
-        <Box ml="auto">{pathname === "/" ? <LogInButton /> : <IconNavs />}</Box>
+        <Box ml="auto">{pathname === "/" ? <LogInButton /> : <LogOut />}</Box>
       </Flex>
     </>
   );
@@ -29,11 +29,11 @@ const LogInButton = () => (
   </Button>
 );
 
-// const LogOut = () => (
-//   <Button variant="ghost" _hover={{ bg: "none", color: "#0267FD" }}>
-//     <Link to="/">Sign Out</Link>
-//   </Button>
-// );
+const LogOut = () => (
+  <Button variant="ghost" _hover={{ bg: "none", color: "#0267FD" }}>
+    <Link to="/">Sign Out</Link>
+  </Button>
+);
 
 // bcdbcd;
 // #0267FD

@@ -72,27 +72,29 @@ export const Login = () => {
     <Box margin="0 auto" pt="7rem">
       <Container>
         <Subtitle>Log in to access your dashboard</Subtitle>
-        <FormControl mt="1.6rem">
-          <FormLabel>Username/Email</FormLabel>
-          <Input type="text" value={username} onChange={handleUsername} />
-        </FormControl>
-        <FormControl my="1.6rem">
-          <FormLabel>Password</FormLabel>
-          <Input type="password" value={password} onChange={handlePassword} />
-        </FormControl>
-        <Button
-          width="100%"
-          type="submit"
-          bg="#0267FD"
-          color="white"
-          isLoading={isLoading}
-          onClick={handleSubmit}
-          loadingText="Submitting"
-          _hover={{ opacity: "0.6" }}
-          isDisabled={!(username && password)}
-        >
-          Submit
-        </Button>
+        <form onSubmit={event => event.preventDefault()}>
+          <FormControl mt="1.6rem">
+            <FormLabel>Username/Email</FormLabel>
+            <Input type="text" value={username} onChange={handleUsername} />
+          </FormControl>
+          <FormControl my="1.6rem">
+            <FormLabel>Password</FormLabel>
+            <Input type="password" value={password} onChange={handlePassword} />
+          </FormControl>
+          <Button
+            width="100%"
+            type="submit"
+            bg="#0267FD"
+            color="white"
+            isLoading={isLoading}
+            onClick={handleSubmit}
+            loadingText="Submitting"
+            _hover={{ opacity: "0.6" }}
+            isDisabled={!(username && password)}
+          >
+            Submit
+          </Button>
+        </form>
       </Container>
     </Box>
   );

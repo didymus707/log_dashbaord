@@ -25,21 +25,21 @@ import DatePicker from "react-datepicker";
 import { SearchIcon } from "@chakra-ui/icons";
 import { BodyText } from "./primitives/typos";
 import "react-datepicker/dist/react-datepicker.css";
+import './datepicker.css';
 import { requestConfig } from "../services/client";
-import { CustomInput } from "./primitives/customInput";
 import Paginate, { PaginateProps } from "./primitives/paginate";
 // import { Filter } from "./primitives/filter";
 
 type DataTableProps = {
   list: {}[];
-  query: string;
+  query: any;
   setList?: any;
   endDate?: Date;
   startDate?: Date;
   setEndDate?: any;
   setStartDate?: any;
   currentPage: number;
-  setQuery: React.Dispatch<React.SetStateAction<string>>;
+  setQuery: React.Dispatch<React.SetStateAction<any>>;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   setTotalRecords: React.Dispatch<React.SetStateAction<number>>;
   setRecordsPerPage: React.Dispatch<React.SetStateAction<number>>;
@@ -65,11 +65,18 @@ export const DataTable = (props: DataTableProps) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleEntry = (event: any) => {
-    console.log("something should happen");
     setRecordsPerPage(event.target.value);
   };
+
+  const handleReset = () => {
+    setQuery('');
+    setEndDate();
+    setStartDate();
+  }
+
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) =>
     setQuery(event.target.value);
+
   const handleFilter = async () => {
     setLoading(true);
     try {
@@ -118,8 +125,8 @@ export const DataTable = (props: DataTableProps) => {
           selected={startDate}
           startDate={startDate}
           dateFormat="dd - MM - yyyy"
-          customInput={<CustomInput />}
-          placeholderText="Select Date"
+          wrapperClassName="datePicker"
+          placeholderText="Select Date From"
           onChange={(date: Date) => setStartDate(date)}
         />
         <DatePicker
@@ -129,7 +136,8 @@ export const DataTable = (props: DataTableProps) => {
           minDate={startDate}
           startDate={startDate}
           dateFormat="dd - MM - yyyy"
-          customInput={<CustomInput />}
+          wrapperClassName="datePicker"
+          placeholderText="Select Date To"
           onChange={(date: Date) => setEndDate(date)}
         />
         <Button
@@ -143,7 +151,7 @@ export const DataTable = (props: DataTableProps) => {
         >
           Filter
         </Button>
-        <Button w="6rem" colorScheme="gray" onClick={() => {}}>
+        <Button w="6rem" colorScheme="gray" onClick={handleReset}>
           Reset
         </Button>
 
@@ -152,7 +160,7 @@ export const DataTable = (props: DataTableProps) => {
             <SearchIcon color="gray.300" />
           </InputLeftElement>
           <Input
-            type="text"
+            type="search"
             value={query}
             onChange={handleSearch}
             placeholder="Search..."
@@ -208,14 +216,13 @@ export const DataTable = (props: DataTableProps) => {
                           )}
                         </Td>
                         <Td>{requestId}</Td>
-                        <Td>{responseCode}</Td>
+                        <Td textAlign="center">{responseCode}</Td>
                         <Td>{beneficiaryBank}</Td>
                         <Td>{beneficiaryAccountNumber}</Td>
                         <Td>{narration}</Td>
-                        <Td
-                          textAlign="right"
-                          pr="2.5rem"
-                        >{`\u20A6${transactionAmount.toFixed(2)}`}</Td>
+                        <Td textAlign="center">{`\u20A6${transactionAmount.toFixed(
+                          2
+                        )}`}</Td>
                       </Tr>
                     </>
                   );
