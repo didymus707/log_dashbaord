@@ -126,8 +126,8 @@ export const DataTable = (props: DataTableProps) => {
                   <Th textAlign="center">Response Code</Th>
                   <Th textAlign="center">Ben. Bank</Th>
                   <Th textAlign="center">Ben. Account Number</Th>
-                  <Th textAlign="center">Transaction Amount</Th>
                   <Th textAlign="center">Status</Th>
+                  <Th textAlign="center">Transaction Amount</Th>
                 </Tr>
               </Thead>
               <Tbody>

@@ -18,12 +18,12 @@ type FilterProps = {
   startDate?: Date;
   result: number[];
   recordsPerPage: number;
-  handleEntry: (event: any) => void;
-  handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleFilter: () => void;
   handleReset: () => void;
   setEndDate: (date: Date) => void;
+  handleEntry: (event: any) => void;
   setStartDate: (date: Date) => void;
+  handleSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const Filter = (props: FilterProps) => {
@@ -85,6 +85,7 @@ export const Filter = (props: FilterProps) => {
         loadingText="fetching"
         onClick={handleFilter}
         _hover={{ opacity: 0.8 }}
+        isDisabled={!startDate || !endDate}
       >
         Filter
       </Button>
