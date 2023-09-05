@@ -18,6 +18,7 @@ import { entryBits } from "../logic";
 import { Filter } from "./primitives/filter";
 import { requestConfig } from "../services/client";
 import Paginate, { PaginateProps } from "./primitives/paginate";
+import { Subtitle } from "./primitives/typos";
 
 type DataTableProps = {
   list: {}[];
@@ -130,44 +131,50 @@ export const DataTable = (props: DataTableProps) => {
                   <Th textAlign="center">Transaction Amount</Th>
                 </Tr>
               </Thead>
-              <Tbody>
-                {list.map((item: any) => {
-                  const {
-                    id,
-                    status,
-                    requestId,
-                    // narration,
-                    responseCode,
-                    beneficiaryBank,
-                    transactionAmount,
-                    lastModificationTime,
-                    beneficiaryAccountNumber,
-                  } = item;
-                  return (
-                    <>
-                      <Tr key={id}>
-                        <Td textAlign="center">
-                          {format(
-                            new Date(lastModificationTime),
-                            "MMM dd, yyy HH:mm"
-                          )}
-                        </Td>
-                        <Td textAlign="center">{requestId}</Td>
-                        <Td textAlign="center">{responseCode}</Td>
-                        <Td textAlign="center">{beneficiaryBank}</Td>
-                        <Td textAlign="center">{beneficiaryAccountNumber}</Td>
-                        <Td textAlign="center">{status}</Td>
-                        <Td textAlign="center">{`\u20A6${transactionAmount.toFixed(
-                          2
-                        )}`}</Td>
-                      </Tr>
-                    </>
-                  );
-                })}
-              </Tbody>
-              <Tfoot></Tfoot>
+              {!!list.length && (
+                <Tbody>
+                  {list.map((item: any) => {
+                    const {
+                      id,
+                      status,
+                      requestId,
+                      // narration,
+                      responseCode,
+                      beneficiaryBank,
+                      transactionAmount,
+                      lastModificationTime,
+                      beneficiaryAccountNumber,
+                    } = item;
+                    return (
+                      <>
+                        <Tr key={id}>
+                          <Td textAlign="center">
+                            {format(
+                              new Date(lastModificationTime),
+                              "MMM dd, yyy HH:mm"
+                            )}
+                          </Td>
+                          <Td textAlign="center">{requestId}</Td>
+                          <Td textAlign="center">{responseCode}</Td>
+                          <Td textAlign="center">{beneficiaryBank}</Td>
+                          <Td textAlign="center">{beneficiaryAccountNumber}</Td>
+                          <Td textAlign="center">{status}</Td>
+                          <Td textAlign="center">{`\u20A6${transactionAmount.toFixed(
+                            2
+                          )}`}</Td>
+                        </Tr>
+                      </>
+                    );
+                  })}
+                </Tbody>
+              )}
             </Table>
           </TableContainer>
+          {list.length === 0 && (
+            <Subtitle py="4rem" textAlign="center">
+              No Record Found
+            </Subtitle>
+          )}
           <Paginate
             currentPage={currentPage}
             totalRecords={totalRecords}
