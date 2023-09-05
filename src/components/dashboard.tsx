@@ -1,18 +1,19 @@
 import axios from "axios";
 import { Boxes } from "./Boxes";
+import useDebounce from "./hooks";
 import { DataTable } from "./table";
+import { formatDate } from "../logic";
 import { Box, Spinner } from "@chakra-ui/react";
 import { DashboardTitle } from "./header";
 import React, { useEffect, useState } from "react";
 import { requestConfig } from "../services/client";
-import useDebounce from "./hooks";
 
 export const Dashboard = () => {
   const [list, setList] = useState([]);
   const [query, setQuery] = useState();
-  const [endDate, setEndDate] = useState<Date>();
-  const [startDate, setStartDate] = useState<Date>();
-  // const [loading, setLoading] = useState<boolean>(false);
+  const [endDate, setEndDate] = useState<any>();
+  const [startDate, setStartDate] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalRecords, setTotalRecords] = useState<number>(10);
   const [recordsPerPage, setRecordsPerPage] = useState<number>(5);
@@ -20,6 +21,7 @@ export const Dashboard = () => {
   const debounceValue = useDebounce(query, 500);
 
   useEffect(() => {
+    setLoading(true);
     const fetchTransactions = async () => {
       const response = await axios("api/services/app/Transaction/GetAll", {
         ...requestConfig,
@@ -27,20 +29,21 @@ export const Dashboard = () => {
           page: currentPage,
           PerPage: recordsPerPage,
           FilterValue: debounceValue,
-          FromDate: startDate,
-          ToDate: endDate,
+          FronDate: formatDate(startDate),
+          ToDate: formatDate(endDate),
         },
       });
       const { data } = response ?? {};
       setTotalRecords(data?.recordsTotal);
       setList(data?.data);
+      setLoading(false);
     };
     fetchTransactions();
-    
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, recordsPerPage, debounceValue]);
 
-  return !!list.length ? (
+  return !!list.length || loading ? (
     <Box as="main" pb="4rem">
       <DashboardTitle />
       <Boxes />

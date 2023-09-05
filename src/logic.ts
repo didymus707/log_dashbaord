@@ -6,3 +6,12 @@ export const entryBits = (totalRecords: number) => {
   }
   return result;
 };
+
+export const formatDate = (parameter: object) => {
+  const dateInput = String(parameter);
+  const year = new Date(dateInput).getFullYear();
+  const month = String(new Date(dateInput).getMonth() + 1).padStart(2, "0");
+  const day = String(new Date(dateInput).getDay()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};

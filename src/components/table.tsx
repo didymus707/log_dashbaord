@@ -18,17 +18,17 @@ import {
   TableContainer,
   InputLeftElement,
 } from "@chakra-ui/react";
+import "./datepicker.css";
 import axios from "axios";
 import { format } from "date-fns";
 import { entryBits } from "../logic";
 import DatePicker from "react-datepicker";
+import { Filter } from "./primitives/filter";
 import { SearchIcon } from "@chakra-ui/icons";
 import { BodyText } from "./primitives/typos";
 import "react-datepicker/dist/react-datepicker.css";
-import './datepicker.css';
 import { requestConfig } from "../services/client";
 import Paginate, { PaginateProps } from "./primitives/paginate";
-// import { Filter } from "./primitives/filter";
 
 type DataTableProps = {
   list: {}[];
@@ -69,10 +69,10 @@ export const DataTable = (props: DataTableProps) => {
   };
 
   const handleReset = () => {
-    setQuery('');
+    setQuery("");
     setEndDate();
     setStartDate();
-  }
+  };
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) =>
     setQuery(event.target.value);
@@ -101,7 +101,19 @@ export const DataTable = (props: DataTableProps) => {
 
   return (
     <Box p="0.8rem 1.2rem">
-      {/* <Filter query={query} endDate={endDate} startDate={startDate} result={result} customInput={<CustomInput />} recordsPerPage={recordsPerPage} handleEntry={handleEntry} handleSearch={handleSearch} handleFilter={handleFilter} /> */}
+      <Filter
+        query={query}
+        result={result}
+        endDate={endDate}
+        startDate={startDate}
+        setEndDate={setEndDate}
+        handleReset={handleReset}
+        handleEntry={handleEntry}
+        handleSearch={handleSearch}
+        handleFilter={handleFilter}
+        setStartDate={setStartDate}
+        recordsPerPage={recordsPerPage}
+      />
       <Flex w="100%" p="1.5rem 0" align="center">
         <Flex align="center" w="184px" justify="space-between" mr="1rem">
           <BodyText>Show</BodyText>
@@ -197,10 +209,10 @@ export const DataTable = (props: DataTableProps) => {
               <Tbody>
                 {list.map((item: any) => {
                   const {
+                    id,
                     requestId,
                     narration,
                     responseCode,
-                    transactionId,
                     beneficiaryBank,
                     transactionAmount,
                     lastModificationTime,
@@ -208,7 +220,7 @@ export const DataTable = (props: DataTableProps) => {
                   } = item;
                   return (
                     <>
-                      <Tr key={transactionId}>
+                      <Tr key={id}>
                         <Td>
                           {format(
                             new Date(lastModificationTime),
