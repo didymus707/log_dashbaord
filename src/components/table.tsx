@@ -121,10 +121,10 @@ export const DataTable = (props: DataTableProps) => {
             <Table variant="striped" colorScheme="blue">
               <Thead>
                 <Tr>
-                  <Th>Date</Th>
-                  <Th>Request ID</Th>
+                  <Th textAlign="center">Date</Th>
+                  <Th textAlign="center">Request ID</Th>
                   <Th textAlign="center">Response Code</Th>
-                  <Th>Ben. Bank</Th>
+                  <Th textAlign="center">Ben. Bank</Th>
                   <Th textAlign="center">Ben. Account Number</Th>
                   <Th textAlign="center">Transaction Amount</Th>
                   <Th textAlign="center">Status</Th>
@@ -146,15 +146,15 @@ export const DataTable = (props: DataTableProps) => {
                   return (
                     <>
                       <Tr key={id}>
-                        <Td>
+                        <Td textAlign="center">
                           {format(
                             new Date(lastModificationTime),
                             "MMM dd, yyy HH:mm"
                           )}
                         </Td>
-                        <Td>{requestId}</Td>
+                        <Td textAlign="center">{requestId}</Td>
                         <Td textAlign="center">{responseCode}</Td>
-                        <Td>{beneficiaryBank}</Td>
+                        <Td textAlign="center">{beneficiaryBank}</Td>
                         <Td textAlign="center">{beneficiaryAccountNumber}</Td>
                         <Td textAlign="center">{status}</Td>
                         <Td textAlign="center">{`\u20A6${transactionAmount.toFixed(

@@ -43,37 +43,41 @@ export const Dashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, recordsPerPage, debounceValue]);
 
-  return !!list.length || loading ? (
+  return (
     <Box as="main" pb="4rem">
       <DashboardTitle />
-      <Boxes />
-      <DataTable
-        list={list}
-        query={query}
-        endDate={endDate}
-        setQuery={setQuery}
-        startDate={startDate}
-        setEndDate={setEndDate}
-        currentPage={currentPage}
-        setStartDate={setStartDate}
-        totalRecords={totalRecords}
-        recordsPerPage={recordsPerPage}
-        setCurrentPage={setCurrentPage}
-        setTotalRecords={setTotalRecords}
-        setRecordsPerPage={setRecordsPerPage}
-      />
-    </Box>
-  ) : (
-    <Box as="main" pb="4rem">
-      <Spinner
-        size="xl"
-        speed="0.65s"
-        display="flex"
-        thickness="4px"
-        color="#0267FD"
-        margin="16rem auto 0"
-        emptyColor="gray.200"
-      />
+      {!!list.length || !loading ? (
+        <>
+          <Boxes />
+          <DataTable
+            list={list}
+            query={query}
+            endDate={endDate}
+            setQuery={setQuery}
+            startDate={startDate}
+            setEndDate={setEndDate}
+            currentPage={currentPage}
+            setStartDate={setStartDate}
+            totalRecords={totalRecords}
+            recordsPerPage={recordsPerPage}
+            setCurrentPage={setCurrentPage}
+            setTotalRecords={setTotalRecords}
+            setRecordsPerPage={setRecordsPerPage}
+          />
+        </>
+      ) : (
+        <Box as="main" pb="4rem">
+          <Spinner
+            size="xl"
+            speed="0.65s"
+            display="flex"
+            thickness="4px"
+            color="#0267FD"
+            margin="16rem auto 0"
+            emptyColor="gray.200"
+          />
+        </Box>
+      )}
     </Box>
   );
 };
