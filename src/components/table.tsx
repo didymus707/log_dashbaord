@@ -123,19 +123,20 @@ export const DataTable = (props: DataTableProps) => {
                 <Tr>
                   <Th>Date</Th>
                   <Th>Request ID</Th>
-                  <Th>Response Code</Th>
+                  <Th textAlign="center">Response Code</Th>
                   <Th>Ben. Bank</Th>
-                  <Th>Ben. Account Number</Th>
-                  <Th>Narration</Th>
-                  <Th>Transaction Amount</Th>
+                  <Th textAlign="center">Ben. Account Number</Th>
+                  <Th textAlign="center">Transaction Amount</Th>
+                  <Th textAlign="center">Status</Th>
                 </Tr>
               </Thead>
               <Tbody>
                 {list.map((item: any) => {
                   const {
                     id,
+                    status,
                     requestId,
-                    narration,
+                    // narration,
                     responseCode,
                     beneficiaryBank,
                     transactionAmount,
@@ -154,8 +155,8 @@ export const DataTable = (props: DataTableProps) => {
                         <Td>{requestId}</Td>
                         <Td textAlign="center">{responseCode}</Td>
                         <Td>{beneficiaryBank}</Td>
-                        <Td>{beneficiaryAccountNumber}</Td>
-                        <Td>{narration}</Td>
+                        <Td textAlign="center">{beneficiaryAccountNumber}</Td>
+                        <Td textAlign="center">{status}</Td>
                         <Td textAlign="center">{`\u20A6${transactionAmount.toFixed(
                           2
                         )}`}</Td>
