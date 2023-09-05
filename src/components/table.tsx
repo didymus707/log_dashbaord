@@ -7,7 +7,6 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Spinner,
   TableContainer,
 } from "@chakra-ui/react";
