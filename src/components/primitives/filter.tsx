@@ -10,6 +10,7 @@ import {
   InputLeftElement,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
+import "react-datepicker/dist/react-datepicker.css";
 
 type FilterProps = {
   query: string;
@@ -40,135 +41,68 @@ export const Filter = (props: FilterProps) => {
     recordsPerPage,
   } = props;
   return (
-    <>
-      <Flex w="100%" p="1.5rem 0" align="center">
-        <Flex align="center" w="184px" justify="space-between" mr="1rem">
-          <BodyText>Show</BodyText>
-          <Select
-            w="80px"
-            value={recordsPerPage}
-            variant="filled"
-            onChange={handleEntry}
-          >
-            {result.map((bit: number, index: number) => (
-              <option key={index} value={bit}>
-                {bit}
-              </option>
-            ))}
-          </Select>
-          <BodyText>Entries</BodyText>
-        </Flex>
-        <DatePicker
-          selectsStart
-          endDate={endDate}
-          selected={startDate}
-          startDate={startDate}
-          dateFormat="dd - MM - yyyy"
-          placeholderText="Select Date"
-          onChange={(date: Date) => setStartDate(date)}
-        />
-        <DatePicker
-          selectsEnd
-          endDate={endDate}
-          selected={endDate}
-          minDate={startDate}
-          startDate={startDate}
-          dateFormat="dd - MM - yyyy"
-          onChange={(date: Date) => setEndDate(date)}
-        />
-        <Button
-          w="6rem"
-          mr="1rem"
-          bg="#0267FD"
-          color="white"
-          loadingText="fetching"
-          onClick={handleFilter}
-          _hover={{ opacity: 0.8 }}
+    <Flex w="100%" p="1.5rem 0" align="center">
+      <Flex align="center" w="184px" justify="space-between" mr="1rem">
+        <BodyText>Show</BodyText>
+        <Select
+          w="80px"
+          variant="filled"
+          value={recordsPerPage}
+          onChange={handleEntry}
         >
-          Filter
-        </Button>
-        <Button w="6rem" colorScheme="gray" onClick={() => {}}>
-          Reset
-        </Button>
-
-        <InputGroup width="400px" ml="auto">
-          <InputLeftElement pointerEvents="none">
-            <SearchIcon color="gray.300" />
-          </InputLeftElement>
-          <Input
-            type="text"
-            value={query}
-            onChange={handleSearch}
-            placeholder="Search..."
-          />
-        </InputGroup>
+          {result.map((bit: number, index: number) => (
+            <option key={index} value={bit}>
+              {bit}
+            </option>
+          ))}
+        </Select>
+        <BodyText>Entries</BodyText>
       </Flex>
+      <DatePicker
+        selectsStart
+        endDate={endDate}
+        selected={startDate}
+        startDate={startDate}
+        dateFormat="dd - MM - yyyy"
+        placeholderText="Select Date From"
+        onChange={(date: Date) => setStartDate(date)}
+      />
+      <DatePicker
+        selectsEnd
+        endDate={endDate}
+        selected={endDate}
+        minDate={startDate}
+        startDate={startDate}
+        dateFormat="dd - MM - yyyy"
+        placeholderText="Select Date To"
+        onChange={(date: Date) => setEndDate(date)}
+      />
+      <Button
+        w="6rem"
+        mr="1rem"
+        bg="#0267FD"
+        color="white"
+        loadingText="fetching"
+        onClick={handleFilter}
+        _hover={{ opacity: 0.8 }}
+      >
+        Filter
+      </Button>
+      <Button w="6rem" colorScheme="gray" onClick={handleReset}>
+        Reset
+      </Button>
 
-      <Flex w="100%" p="1.5rem 0" align="center">
-        <Flex align="center" w="184px" justify="space-between" mr="1rem">
-          <BodyText>Show</BodyText>
-          <Select
-            w="80px"
-            value={recordsPerPage}
-            variant="filled"
-            onChange={handleEntry}
-          >
-            {result.map((bit: number, index: number) => (
-              <option key={index} value={bit}>
-                {bit}
-              </option>
-            ))}
-          </Select>
-          <BodyText>Entries</BodyText>
-        </Flex>
-        <DatePicker
-          selectsStart
-          endDate={endDate}
-          selected={startDate}
-          startDate={startDate}
-          dateFormat="dd - MM - yyyy"
-          wrapperClassName="datePicker"
-          placeholderText="Select Date From"
-          onChange={(date: Date) => setStartDate(date)}
+      <InputGroup width="400px" ml="auto">
+        <InputLeftElement pointerEvents="none">
+          <SearchIcon color="gray.300" />
+        </InputLeftElement>
+        <Input
+          type="text"
+          value={query}
+          onChange={handleSearch}
+          placeholder="Search..."
         />
-        <DatePicker
-          selectsEnd
-          endDate={endDate}
-          selected={endDate}
-          minDate={startDate}
-          startDate={startDate}
-          dateFormat="dd - MM - yyyy"
-          wrapperClassName="datePicker"
-          placeholderText="Select Date To"
-          onChange={(date: Date) => setEndDate(date)}
-        />
-        <Button
-          w="6rem"
-          mr="1rem"
-          bg="#0267FD"
-          color="white"
-          loadingText="fetching"
-          onClick={handleFilter}
-          _hover={{ opacity: 0.8 }}
-        >
-          Filter
-        </Button>
-        <Button w="6rem" colorScheme="gray" onClick={handleReset}>
-          Reset
-        </Button>
-
-        <InputGroup width="400px" ml="auto">
-          <InputLeftElement pointerEvents="none">
-            <SearchIcon color="gray.300" />
-          </InputLeftElement>
-          <Input
-            type="search"
-            value={query}
-            onChange={handleSearch}
-            placeholder="Search..."
-          />
-        </InputGroup>
-      </Flex>
-    </>
+      </InputGroup>
+    </Flex>
   );
 };
