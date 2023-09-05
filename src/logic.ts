@@ -15,3 +15,11 @@ export const formatDate = (parameter: object) => {
 
   return `${year}-${month}-${day}`;
 };
+
+export const disableDateFilterButton = (startDate: any, endDate: any) => {
+  if (startDate && !endDate) {
+    return false
+  } else if (!startDate || !endDate) {
+    return true;
+  }
+}

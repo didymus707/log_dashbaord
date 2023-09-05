@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import "react-datepicker/dist/react-datepicker.css";
+import { disableDateFilterButton } from "../../logic";
 
 type FilterProps = {
   query: string;
@@ -85,7 +86,7 @@ export const Filter = (props: FilterProps) => {
         loadingText="fetching"
         onClick={handleFilter}
         _hover={{ opacity: 0.8 }}
-        isDisabled={!startDate || !endDate}
+        isDisabled={disableDateFilterButton(startDate, endDate)}
       >
         Filter
       </Button>
